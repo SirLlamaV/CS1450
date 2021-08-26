@@ -31,6 +31,7 @@ public class MayeuxKalebAssignment1
 			System.out.printf("array2[%d] = " + array2[i] + " \n", i);
 		}
 		
+		//Sort and transfer arrays here
 		
 	}
 
