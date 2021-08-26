@@ -22,16 +22,18 @@ public class MayeuxKalebAssignment1
 		
 		for (int i = 0; i < array1.length; i++)
 		{
-			System.out.printf("array1[%d] = " + array1[i] + " \n", i);
+			System.out.printf("array1[%d] = %d\n", i, array1[i]);
 		}
 		
 		System.out.println("\nArray 2: Original\n" + "-----------------");
 		for (int i = 0; i < array2.length; i++)
 		{
-			System.out.printf("array2[%d] = " + array2[i] + " \n", i);
+			System.out.printf("array2[%d] = %d\n", i, array2[i]);
 		}
 		
 		//Sort and transfer arrays here
+		
+		
 		
 	}
 
