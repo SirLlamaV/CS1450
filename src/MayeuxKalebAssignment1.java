@@ -11,14 +11,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Scanner;
 public class MayeuxKalebAssignment1 
 {
 
 	public static void main(String[] args) throws IOException
 	{
 		int odd;
-		int placeHolder1 = 0;
-		int placeHolder2 = 0;
+		int numStorage = 0;
 		
 		int[] array1 = {13, 18, 1, 4, 8, 16, 11};
 		int[] array2 = {9, 10, 5, 12, 3, 7, 14};
@@ -70,36 +70,59 @@ public class MayeuxKalebAssignment1
 			System.out.printf("array2[%d] = %d\n", i, array2[i]);
 		}
 		
+		System.out.println("\nShow values being written to file\n" + "---------------------------------");
+		
 		File fileName = new File("assignment1.txt");
 		PrintWriter outputFile = new PrintWriter (fileName);
 		
-		for (int i = 0; i < array1.length; i++)
+		for (int i = 0; i <= array1.length;)
 			{
-				if ((array1[i] > array2[i]) && (array1[i] != placeHolder1))
+				if (array1[i] < array2[6])
 				{
-					placeHolder1 = array1[i];
-					System.out.println(placeHolder1);
-					for (int j = 0; j < array2.length; j++)
+					for (int j = 0; j < array2.length;)
 					{
-						if (placeHolder1 < array2[j])
+						j = numStorage;
+						if(array1[i] > array2[j])
 						{
-							outputFile.println(placeHolder1);
-							System.out.println(placeHolder1 + " if");
-							break;
-						}
-						else if ((array2[j] < placeHolder1)  && (array2[j] != placeHolder2))
-						{
+							System.out.printf("Writing to File: %d\n", array2[j]);
 							outputFile.println(array2[j]);
-							placeHolder2 = array2[j];
-							System.out.println(array2[j] + " elif");
-							break;
+							j++;
+							numStorage = j;
+						}
+						else if (array1[i] < array2[j])
+						{
+							System.out.printf("Writing to File: %d\n",array1[i]);
+							outputFile.println(array1[i]);
+							i++;
 						}
 					}
 				}
+					System.out.printf("Writing to File: %d\n",array1[i]);
+					outputFile.println(array1[i]);
+					if (i + 2 > array1.length)
+					{
+						break;
+					}
+					else
+					{
+						i++;
+					}
 			}
-				
-		
 		
 		outputFile.close();
+		
+		Scanner readFile = new Scanner (fileName);
+		
+		int[] finalArray = new int[14];
+		
+		System.out.println("\nFinal Array\n" + "-------------------------------");
+		
+		for(int i = 0; i < finalArray.length; i++)
+		{
+			finalArray[i] = readFile.nextInt();
+			System.out.printf("finalArray[%d] = %d\n", i, finalArray[i]);
+		}
+		
+		readFile.close();
 	}
 }
