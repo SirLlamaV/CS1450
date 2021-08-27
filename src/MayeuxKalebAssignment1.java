@@ -17,6 +17,7 @@ public class MayeuxKalebAssignment1
 
 	public static void main(String[] args) throws IOException
 	{
+		//Initialize variables necessary and required arrays
 		int odd;
 		int numStorage = 0;
 		
@@ -24,7 +25,6 @@ public class MayeuxKalebAssignment1
 		int[] array2 = {9, 10, 5, 12, 3, 7, 14};
 		
 		System.out.println("Array 1: Original\n" + "-----------------");
-		
 		for (int i = 0; i < array1.length; i++)
 		{
 			System.out.printf("array1[%d] = %d\n", i, array1[i]);
@@ -36,8 +36,8 @@ public class MayeuxKalebAssignment1
 			System.out.printf("array2[%d] = %d\n", i, array2[i]);
 		}
 		
-		//Sort and transfer arrays here
 		
+		// This code swaps even numbers to array 1 and odd numbers to array 2
 		for (int i = 0; i < array1.length; i++)
 		{
 			if (array1[i] % 2 > 0)
@@ -72,9 +72,13 @@ public class MayeuxKalebAssignment1
 		
 		System.out.println("\nShow values being written to file\n" + "---------------------------------");
 		
+		//Creating a file with name and preparing it to be written to.
+		
 		File fileName = new File("assignment1.txt");
 		PrintWriter outputFile = new PrintWriter (fileName);
 		
+		
+		//Sorts the arrays in ascending order and then writes them to the file
 		for (int i = 0; i <= array1.length;)
 			{
 				if (array1[i] < array2[6])
@@ -97,6 +101,7 @@ public class MayeuxKalebAssignment1
 						}
 					}
 				}
+				// Messy code that prevents an array overflow from manually adding 1 to i by breaking out of the loop
 					System.out.printf("Writing to File: %d\n",array1[i]);
 					outputFile.println(array1[i]);
 					if (i + 2 > array1.length)
@@ -117,6 +122,8 @@ public class MayeuxKalebAssignment1
 		
 		System.out.println("\nFinal Array\n" + "-------------------------------");
 		
+		
+		// Takes the contents of the file and transfers them to an array, then prints the array.
 		for(int i = 0; i < finalArray.length; i++)
 		{
 			finalArray[i] = readFile.nextInt();
