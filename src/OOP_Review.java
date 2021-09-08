@@ -21,6 +21,11 @@ class Dog
 	
 	Dog myDog = new Dog("Ajax", 55, "Black and Brown", "German Shepard");
 	
+	public Dog()
+	{
+		
+	}
+	
 	public Dog(String dogName, int dogSize, String dogColor, String dogBreed)
 	{
 		name = dogName;

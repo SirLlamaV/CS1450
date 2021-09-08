@@ -9,9 +9,14 @@ public class MayeuxKalebAssignment2
 		File fileName = new File("Actors.txt");
 		Scanner inputFile = new Scanner (fileName);
 		
+		Actor[] actors = new Actor[10];
+		
+		inputFile.nextLine();
 		while(inputFile.hasNextLine())
 		{
-			System.out.println("Value read form file is: " + inputFile.nextLine());
+			System.out.printf("Value read form file is: %s\n%s\n", inputFile.next(), inputFile.nextLine());
+			actors[1] = inputFile.nextLine();
+			
 		}
 		
 		inputFile.close();
@@ -21,8 +26,25 @@ public class MayeuxKalebAssignment2
 
 class Actor
 {
-	private String Hero;
-	private String Villain;
-	private String Monster;
-	private String Droid;
+	
+}
+
+class Monster extends Actor
+{
+
+}
+
+class Droid extends Actor
+{
+	
+}
+
+class Villain extends Actor
+{
+	
+}
+
+class Hero extends Actor
+{
+	
 }
