@@ -10,14 +10,12 @@ public class MayeuxKalebAssignment2
 		File fileName = new File("Actors.txt");
 		Scanner inputFile = new Scanner (fileName);
 		
-		Actor actors[] = new Actor[10];
+		Actor actors[] = new Actor[inputFile.nextInt()];
 		Movie movieTest = new Movie();
 		
 		String name;
 		String occupation;
 		
-		// Skip past the initial 10 in the file
-		inputFile.nextLine();
 		while(inputFile.hasNextLine())
 		{
 			for(int i = 0; i < actors.length; i++)
