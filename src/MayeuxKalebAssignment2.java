@@ -6,6 +6,7 @@ public class MayeuxKalebAssignment2
 {
 	public static void main(String[] args) throws IOException
 	{
+		// Initialize File, Scanner, Array of Objects, and Movie class array
 		File fileName = new File("Actors.txt");
 		Scanner inputFile = new Scanner (fileName);
 		
@@ -15,31 +16,32 @@ public class MayeuxKalebAssignment2
 		String name;
 		String occupation;
 		
-		
+		// Skip past the initial 10 in the file
 		inputFile.nextLine();
 		while(inputFile.hasNextLine())
 		{
 			for(int i = 0; i < actors.length; i++)
 			{
+				//Sets occupation (type) to where it appears in the documents and does the same afterwards for name
 				occupation = inputFile.next();
 				name = inputFile.nextLine();
-				name = name.replaceAll("\\s",  "");
+				name = name.replaceAll("\\s",  ""); //Takes out the whitespace prior to names
 				
-				if (occupation.contains("Hero"))
+				if (occupation.contains("Hero")) //If the occupation contains the Hero phrase, create a new hero object with the name given
 				{
 					actors[i] = new Hero(name);
 				}
-				else if (occupation.contains("Monster"))
+				else if (occupation.contains("Monster")) // Repeat above for Monster
 				{
 					actors[i] = new Monster(name);
 
 				}
-				else if (occupation.contains("Droid"))
+				else if (occupation.contains("Droid"))// Repeat above for Droid
 				{
 					actors[i] = new Droid(name);
 
 				}
-				else if (occupation.contains("Villain"))
+				else if (occupation.contains("Villain"))// Repeat above for Villain
 				{
 					actors[i] = new Villain(name);
 
@@ -47,11 +49,13 @@ public class MayeuxKalebAssignment2
 			}
 		}
 		
+		//Formatting for final table
+		
 		System.out.printf("---------------------------------------------------------\n");
 		System.out.printf("Actor Name\t\tType\t\tMotto To Live By\n");
 		System.out.printf("---------------------------------------------------------\n");
 		
-		for(int i = 0; i <actors.length; i++)
+		for(int i = 0; i <actors.length; i++) //Print array actors
 		{
 			System.out.printf("%-20s\t%s\t\t%s\t\t\n", actors[i].getName(), actors[i].getOccupation(), actors[i].motto());
 		}
@@ -156,14 +160,14 @@ class Movie
 {
 	private int numHeros;
 	private int numVillains;
-	private Movie actorsInMovie[];
+	private Movie[] actorsInMovie;
+
 	private String name;
 	private String occupation;
-	int counter = 0;
 	
 	public void selectCast(Actor[] actors)
 	{
-		for (int i = 0; i < actors.length; i++)
+		for (int i = 0; i < actors.length; i++) //Run through actors and add to a counter for heros and villains
 		{
 			if (actors[i] instanceof Hero)
 			{
@@ -174,27 +178,24 @@ class Movie
 				numVillains++;
 			}
 		}
+		actorsInMovie = new Movie[actors.length];
 		
-		actorsInMovie = new Movie[numHeros + numVillains + counter];
-		
-		for (int i = 0; i < actorsInMovie.length; i++)
+		for (int i = 0; i < actorsInMovie.length; i++) //Run through actorsInMovie only activating code if actors[i] is in an instanceof Hero or Villain
 		{
 			if (actors[i] instanceof Hero || actors[i] instanceof Villain)
 			{
-				occupation = actors[i].getOccupation();
-				name = actors[i].getName();
-				
-				actorsInMovie[i].name = name;
-				actorsInMovie[i].occupation = occupation;
+				actorsInMovie[i] = new Movie(); //This initializes the array of objects
+				actorsInMovie[i].name = actors[i].getName();
+				actorsInMovie[i].occupation = actors[i].getOccupation();
 			}
 		}
 		
-		printMovieDetails();
-		for (int i = 0; i < actorsInMovie.length; i++)
+		printMovieDetails(); //Calls the print Movie Details method before filling the rest in after
+		for (int i = 0; i < actorsInMovie.length; i++) //Prints the actors name and whether they played a hero or villain
 		{
 			if (actors[i] instanceof Hero || actors[i] instanceof Villain)
 			{
-				System.out.printf("%-20s\t--- %s\n", actorsInMovie[i].name, actorsInMovie[i].occupation);
+				System.out.printf("\n%-10s\t--- %s", actorsInMovie[i].name, actorsInMovie[i].occupation);
 			}
 		}
 		
@@ -206,6 +207,6 @@ class Movie
 		System.out.println("CS1450 Heroes and Villains Movie");
 		System.out.println("--------------------------------");
 		
-		System.out.printf("Number of Heroes: %d\nNumber of Villains: %d", numHeros, numVillains);
+		System.out.printf("Number of Heroes: %d\nNumber of Villains: %d\n", numHeros, numVillains);
 	}
 }
