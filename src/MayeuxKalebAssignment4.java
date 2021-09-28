@@ -37,6 +37,8 @@ public class MayeuxKalebAssignment4
 			Train train = new Train(engineNumber, company, numberRailCars, type, destinationCity);
 			System.out.println(train.getEngineNumber());
 			
+			railroad.addTrainToSortingYard(trackNumber, train);
+			
 			if (!inputFile.hasNextLine())
 			{
 				i = fileSize + 1;
