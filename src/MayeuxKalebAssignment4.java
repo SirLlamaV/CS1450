@@ -25,7 +25,7 @@ public class MayeuxKalebAssignment4
 		
 		Railroad railroad = new Railroad(fileSize);
 		
-		for (int i = 0; i < fileSize; i++)
+		for (int i = 0; i <= fileSize; i++)
 		{
 			trackNumber = inputFile.nextInt();
 			engineNumber = inputFile.nextInt();
@@ -35,7 +35,12 @@ public class MayeuxKalebAssignment4
 			destinationCity = inputFile.next();
 			
 			Train train = new Train(engineNumber, company, numberRailCars, type, destinationCity);
-			train.getEngineNumber();
+			System.out.println(train.getEngineNumber());
+			
+			if (!inputFile.hasNextLine())
+			{
+				i = fileSize + 1;
+			}
 		}
 		
 		
