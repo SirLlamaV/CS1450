@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MayeuxKalebAssignment4 
 {
@@ -25,6 +26,7 @@ public class MayeuxKalebAssignment4
 		
 		Railroad railroad = new Railroad(fileSize);
 		
+		
 		for (int i = 0; i <= fileSize; i++)
 		{
 			trackNumber = inputFile.nextInt();
@@ -34,20 +36,51 @@ public class MayeuxKalebAssignment4
 			type = inputFile.next();
 			destinationCity = inputFile.next();
 			
-			Train train = new Train(engineNumber, company, numberRailCars, type, destinationCity);
-			System.out.println(train.getEngineNumber());
 			
-			railroad.addTrainToSortingYard(trackNumber, train);
+			railroad.addTrainToSortingYard(trackNumber, new Train(engineNumber, company, numberRailCars, type, destinationCity));
+			
+			
 			
 			if (!inputFile.hasNextLine())
 			{
 				i = fileSize + 1;
 			}
 		}
+		System.out.println("Loading trains onto tracks in sorting yard...");
 		
+		railroad.displaySortingYard();
 		
+		printTrainReport(railroad);
 		
 		inputFile.close();
+	}
+	
+	public static void printTrainReport(Railroad railroad)
+	{
+		int nonNullCounter = 0;
+		ArrayList<Train> trains = new ArrayList<>();
+		
+		System.out.println("\n\n****************************************************************************");
+		System.out.println("\t\t\tTRAIN REPORT\n\t\t(Ordered by Number of Rail Cars)");
+		System.out.println("****************************************************************************");
+		System.out.println(" Engine\tCompany\t\tRail Cars\tType\t\tDeparting To");
+		System.out.println("----------------------------------------------------------------------------");
+		for (int i = 0; i < railroad.getNumberTracks(); i++)
+		{
+			if (railroad.getTrainInSortingYard(i) != null)
+			{
+				trains.add(i - nonNullCounter, railroad.getTrainInSortingYard(i));
+				
+			}
+			else
+			{
+				nonNullCounter++;
+			}
+			
+		}
+		
+		Collections.sort(trains);
+		System.out.println(trains.toString().replaceAll(",", "").replaceAll("\\[", " ").replaceAll("\\]", ""));
 	}
 
 }
@@ -59,10 +92,11 @@ class Railroad
 	
 	public Railroad (int numberTracks)
 	{
+		this.numberTracks = numberTracks;
 		sortingYard = new Train[numberTracks];
 	}
 	
-	public int getNumberTracks(int numberTracks)
+	public int getNumberTracks()
 	{
 		return numberTracks;
 	}
@@ -79,7 +113,21 @@ class Railroad
 	
 	public void displaySortingYard()
 	{
-		
+		System.out.println("----------------------------------------------------------------------------");
+		System.out.println("Track\tEngine\tCompany\t\tRail Cars\tType\t\tDestination");
+		System.out.println("----------------------------------------------------------------------------");
+		for (int i = 0; i < numberTracks; i++)
+		{
+			if (sortingYard[i] == null)
+			{
+				System.out.printf("%d\t%s\t%s\t\t%s\t\t%-15s\t%s\n", i, "---", "---", "---", "---", "---");
+			}
+			else
+			{
+				System.out.printf("%d\t%s", i, sortingYard[i]);
+			}
+			
+		}
 	}
 }
 
@@ -128,7 +176,7 @@ class Train implements Comparable<Train>
 	@Override
 	public String toString()
 	{
-		return String.format("%d\\t%s\\t\\t%d\\t\\t%-15s\\t%s", engineNumber, company, numberRailCars, type, destinationCity);
+		return String.format("%d\t%s\t\t%d\t\t%-15s\t%s\n", engineNumber, company, numberRailCars, type, destinationCity);
 	}
 	
 	@Override
@@ -136,11 +184,11 @@ class Train implements Comparable<Train>
 	{
 		if (this.numberRailCars > otherTrain.numberRailCars)
 		{
-			return 1;
+			return -1;
 		}
 		else if (this.numberRailCars < otherTrain.numberRailCars)
 		{
-			return -1;
+			return 1;
 		}
 		else
 		{
