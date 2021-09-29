@@ -62,8 +62,11 @@ public class MayeuxKalebAssignment3
 		
 		displayBirds(birds);
 		
-		//Run swimming race with the value of method find swimmer, then print the winner of the swimming race
-		System.out.printf("The winner is %s the %s swimming at %dmph!", swimmingRace(findSwimmer(birds)).getName(), swimmingRace(findSwimmer(birds)).getType(), ((swimmer) swimmingRace(findSwimmer(birds))).swim());
+		//Run swimming race with the value of method find swimmer
+		Bird winningBird = swimmingRace(findSwimmer(birds));
+		
+		//Print the winner of the swimming race
+		System.out.printf("The winner is %s the %s swimming at %dmph!", winningBird.getName(), winningBird.getType(), ((swimmer) winningBird).swim());
 
 		inputFile.close();
 	}
