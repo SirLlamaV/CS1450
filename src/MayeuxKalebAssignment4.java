@@ -148,4 +148,3 @@ class Train implements Comparable<Train>
 		}
 	}
 }
-
