@@ -1,5 +1,12 @@
 /*
- * Initial Comment 
+ * Kaleb Mayeux
+ * CS1450 Section 002
+ * Assignment 4
+ * Due 9-30-21
+ * 
+ * For this assignment I am tasked with: creating a railroad using the file provided.
+ * I am to parse the file, and create a new train object with the given data.
+ * Then I will print the file as originally provided, and then sorted in the specified manner without null values.
  */
 
 import java.io.IOException;
@@ -26,7 +33,7 @@ public class MayeuxKalebAssignment4
 		
 		Railroad railroad = new Railroad(fileSize);
 		
-		
+		//Parse through the file, and add the given parameters into their own variables
 		for (int i = 0; i <= fileSize; i++)
 		{
 			trackNumber = inputFile.nextInt();
@@ -36,11 +43,11 @@ public class MayeuxKalebAssignment4
 			type = inputFile.next();
 			destinationCity = inputFile.next();
 			
-			
+			//Create a new train object with the provided parameters and immediately add it to the sorting yard
 			railroad.addTrainToSortingYard(trackNumber, new Train(engineNumber, company, numberRailCars, type, destinationCity));
 			
 			
-			
+			//Without this we get a "No Such Element Exception". It kills the for loop if there is no additional line.
 			if (!inputFile.hasNextLine())
 			{
 				i = fileSize + 1;
@@ -48,6 +55,7 @@ public class MayeuxKalebAssignment4
 		}
 		System.out.println("Loading trains onto tracks in sorting yard...");
 		
+		//Run the required methods to display the trains, then close the scanner.
 		railroad.displaySortingYard();
 		
 		printTrainReport(railroad);
@@ -57,7 +65,7 @@ public class MayeuxKalebAssignment4
 	
 	public static void printTrainReport(Railroad railroad)
 	{
-		int nonNullCounter = 0;
+		int nullCounter = 0; // This variable tracks the null values read in the provided railroad sortingYard
 		ArrayList<Train> trains = new ArrayList<>();
 		
 		System.out.println("\n\n****************************************************************************");
@@ -67,14 +75,16 @@ public class MayeuxKalebAssignment4
 		System.out.println("----------------------------------------------------------------------------");
 		for (int i = 0; i < railroad.getNumberTracks(); i++)
 		{
+			//If the value in sortingYard is not null, add the train to our ArrayList trains at position "i - nullCounter".
 			if (railroad.getTrainInSortingYard(i) != null)
 			{
-				trains.add(i - nonNullCounter, railroad.getTrainInSortingYard(i));
+				trains.add(i - nullCounter, railroad.getTrainInSortingYard(i));
 				
 			}
+			//If the value in sortingYard is null, increase the nullCounter
 			else
 			{
-				nonNullCounter++;
+				nullCounter++;
 			}
 			
 		}
